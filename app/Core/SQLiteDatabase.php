@@ -2,41 +2,39 @@
 
 namespace archytech99\Core;
 
-use PDO;
-
 /**
  * Class SQLiteDatabase
- * @package archytech99\Core
+ * @mixin \PDO
  */
 class SQLiteDatabase
 {
     /**
      * PDO instance
-     * @var PDO
+     * @var \PDO
      */
     private $dbh;
 
     /**
      * statement query PDO
-     * @var PDO
+     * @var \PDO
      */
     private $stmt;
 
     /**
      * connect to the SQLite database
-     * @return PDO
+     * @return \PDO
      */
     public function __construct() {
         $dsn = "sqlite:" . SQLITE_FILE;
         $opt = [
-            PDO::ATTR_PERSISTENT => true,
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            \PDO::ATTR_PERSISTENT => true,
+            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
         ];
 
         if ($this->dbh == null) {
             try {
-                $this->dbh = new PDO($dsn, null, null, $opt);
-            } catch (PDOException $e) {
+                $this->dbh = new \PDO($dsn, null, null, $opt);
+            } catch (\PDOException $e) {
                 die($e->getMessage());
             }
         }
@@ -72,16 +70,16 @@ class SQLiteDatabase
         if (is_null($type)) {
             switch(true) {
                 case is_int($value) :
-                    $type = PDO::PARAM_INT;
+                    $type = \PDO::PARAM_INT;
                     break;
                 case is_bool($value) :
-                    $type = PDO::PARAM_BOOL;
+                    $type = \PDO::PARAM_BOOL;
                     break;
                 case is_null($value) :
-                    $type = PDO::PARAM_NULL;
+                    $type = \PDO::PARAM_NULL;
                     break;
                 default :
-                    $type = PDO::PARAM_STR;
+                    $type = \PDO::PARAM_STR;
             }
         }
 
@@ -94,7 +92,7 @@ class SQLiteDatabase
 
     public function get() {
         $this->execute();
-        $results = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+        $results = $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
         $this->stmt->closeCursor();
         if (count($results) == 0) {
             $results = [
@@ -113,7 +111,7 @@ class SQLiteDatabase
     
     public function first() {
         $this->execute();
-        $results = $this->stmt->fetch(PDO::FETCH_ASSOC);
+        $results = $this->stmt->fetch(\PDO::FETCH_ASSOC);
         $this->stmt->closeCursor();
         if (!$results) {
             $results = [
