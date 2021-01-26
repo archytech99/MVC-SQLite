@@ -1,0 +1,26 @@
+{
+    "name": "archytech99/mvc-sqlite",
+    "description": "Belajar membuat aplikasi berbasis MVC dengan menggunakan database SQLite",
+    "type": "project",
+    "license": "MIT",
+    "support": {
+      "issues": "https://github.com/archytech99/MVC-SQLite/issues"
+    },
+    "authors": [
+        {
+            "name": "Arief BP",
+            "email": "ariefbp27@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "archytech99\\": "app/"
+        }
+    },
+    "scripts": {
+        "dump": "composer dump-autoload -o"
+    },
+    "require": {
+        "ext-pdo": "*"
+    }
+}
